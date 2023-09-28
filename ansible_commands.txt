@@ -1,0 +1,21 @@
+# In the below command '-i' option is to provide inventory file path & '-m' for module. Here we are using ping module.
+# Here we are running the ansible command against all
+# 'ping', here is making a connection to each of the hosts inside the inventory.
+ansible all --key-file ~/.ssh/ansible.pub -i inventory -m ping
+
+# After adding the ansible.cfg, below command will work as it will in the config file for 'key file' and 'inventory file'.
+ansible all -m ping
+
+# It will list out the hosts.
+ansible all --list-hosts
+
+# Pulls a list of information about the connected servers including processor info, OS, all environment variables, etc info 
+ansible all -m gather_facts
+
+# Gathers info for only one connected server 
+ansible all -m gather_facts --limit
+
+# Gathers info of the particular connected server
+ansible all -m gather_facts --limit <IP Address of a host>
+
+ 
