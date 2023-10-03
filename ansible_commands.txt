@@ -18,4 +18,21 @@ ansible all -m gather_facts --limit
 # Gathers info of the particular connected server
 ansible all -m gather_facts --limit <IP Address of a host>
 
- 
+
+############################# 3rd October 2023, Vidoe: Ansible 05 : Running elevated ad-hoc Commands #################################
+
+# To run "apt update" command in ansible, since apt update command requires sudo permission, hence "-a" here is for argument; "--become" is to allow us to elevate the privileges (by default it's going to use 'sudo'); "--ask-become-pass" is to enter password, and since sudo is the default, it will ask for 'sudo' password.
+# Note : If sudo password is different on servers, it will fail.
+ansible all -m apt -a update_cache=true --become --ask-become-pass 
+
+# It is equivalent to "sudo apt install vim-nox".
+ansible all -m apt -a name=vim-nox --become --ask-become-pass
+
+# Ansible will make changes if it is required and will show the information, otherwise it's not going to show a change.
+
+# It will upgrade the package named "snapd" on the servers.
+ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
+
+# It will upgrade all the packages on the servers.
+ansible all -m apt -a "upgrade=dist" --become --ask-become-pass
+
