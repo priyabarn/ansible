@@ -7,13 +7,37 @@
     - name: update repository index
       apt:
         update_cache: yes
+      when: ansible_distribution == "Ubuntu"
 
     - name: install apache2 package
       apt:
         name: apache2
         state: latest
+      when: ansible_distribution == "Ubuntu"
 
     - name: add php support for apache
       apt: 
         name: libapache2-mod-php
         state: latest
+      when: ansible_distribution == "Ubuntu"
+
+# We can also write "when" clause like : "when: ansible_distribution in ["Debian", "Ubuntu"], if we had a mix of Debian and Ubuntu. Since Debian and Ubuntu both have 'apt' module. 
+
+    - name: update repository index
+      dnf:
+        update_cache: yes
+      when: ansible_distribution == "CentOS"
+
+# We can also use "when" with "and" clause. E.g. : "when ansible_distribution == "CentOS" and ansible_distribution_version == "8.2" "
+
+    - name: install apache2 package
+      dnf:
+        name: httpd
+        state: latest
+      when: ansible_distribution == "CentOS" # Will only install the package, but will not start it. To start it, we need to start the httpd service manually on the CentOS server and also open the 80 port to allow communication for apache.
+
+    - name: add php support for apache
+      dnf: 
+        name: php
+        state: latest
+      when: ansible_distribution == "CentOS"
