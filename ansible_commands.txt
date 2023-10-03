@@ -36,3 +36,7 @@ ansible all -m apt -a "name=snapd state=latest" --become --ask-become-pass
 # It will upgrade all the packages on the servers.
 ansible all -m apt -a "upgrade=dist" --become --ask-become-pass
 
+# To run the playbook yml file
+ansible-playbook --ask-become-pass install_apache.yml
+
+# 
