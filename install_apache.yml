@@ -4,18 +4,8 @@
   become: true
   tasks:
 
-    ####### To consoliadte 6 plays into 1 play. ########
-    - name: install apache & php packages
-      package:          # "package" here is a module in Ansible i.e. is a generic package manager. It will use whatever package manager the target server uses.
-        name:
-          - "{{ apache_package }}"  # apache_package & php_package are variables.
-          - "{{ php_package }}"     
-        state: latest
-        update_cache: yes
-
-
-    ## Consolidated 6 plays into 2 plays.
-    - name: install apache2 and php packages
+######### Consolidated 6 plays into 2 plays. #######
+    - name: install apache2 and php packages for Ubuntu servers
       apt:
         name: 
           - apache2
@@ -29,7 +19,7 @@
 
 # We can also use "when" with "and" clause. E.g. : "when ansible_distribution == "CentOS" and ansible_distribution_version == "8.2" "
 
-    - name: install apache and php packages for CentOS
+    - name: install apache and php packages for CentOS servers
       dnf:
         name: 
           - httpd
@@ -37,4 +27,16 @@
         state: latest
         update_cache: yes
       when: ansible_distribution == "CentOS" # Will only install the package, but will not start it. To start it, we need to start the httpd service manually on the CentOS server and also open the 80 port to allow communication for apache.
+
+
+
+
+####### To consoliadte 6 plays into 1 play. ########
+    - name: install apache & php packages
+      package:          # "package" here is a module in Ansible i.e. is a generic package manager. It will use whatever package manager the target server uses.
+        name:
+          - "{{ apache_package }}"  # apache_package & php_package are variables.
+          - "{{ php_package }}"   # We define these variables in "inventory" file.
+        state: latest
+        update_cache: yes
 

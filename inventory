@@ -1,11 +1,11 @@
 # In inventory file IP address OR DNS of the servers that we want to manage with the Ansible.
 
-# IP1 -> Ubuntu server
-IP1 apache_package=apache2 php_package=libapache2-mod-php
-# IP2 -> Ubuntu server
-IP2 apache_package=apache2 php_package=libapache2-mod-php
-
+# IP1, IP2 & IP3 -> Ubuntu server
+# IP1 apache_package=apache2 php_package=libapache2-mod-php     ## I did it when I used these variables in install_apache.yml file. Do it same for IP2 & IP3 as these are ubuntu servers as well.
+IP1
+IP2
+IP3
 # Add a CentOS server IP in the file to test "when" statement in Ansible, to "ansible_distribution".
-# IP3 -> CentOS server
-IP3 apache_package=httpd php_package=php
-
+# IP4 -> CentOS server
+# IP4 apache_package=httpd php_package=php
+IP4
