@@ -4,40 +4,37 @@
   become: true
   tasks:
 
-    - name: update repository index
-      apt:
+    ####### To consoliadte 6 plays into 1 play. ########
+    - name: install apache & php packages
+      package:          # "package" here is a module in Ansible i.e. is a generic package manager. It will use whatever package manager the target server uses.
+        name:
+          - "{{ apache_package }}"  # apache_package & php_package are variables.
+          - "{{ php_package }}"     
+        state: latest
         update_cache: yes
-      when: ansible_distribution == "Ubuntu"
 
-    - name: install apache2 package
+
+    ## Consolidated 6 plays into 2 plays.
+    - name: install apache2 and php packages
       apt:
-        name: apache2
+        name: 
+          - apache2
+          - libapache2-mod-php
         state: latest
-      when: ansible_distribution == "Ubuntu"
-
-    - name: add php support for apache
-      apt: 
-        name: libapache2-mod-php
-        state: latest
+        update_cache: yes
       when: ansible_distribution == "Ubuntu"
 
 # We can also write "when" clause like : "when: ansible_distribution in ["Debian", "Ubuntu"], if we had a mix of Debian and Ubuntu. Since Debian and Ubuntu both have 'apt' module. 
 
-    - name: update repository index
-      dnf:
-        update_cache: yes
-      when: ansible_distribution == "CentOS"
 
 # We can also use "when" with "and" clause. E.g. : "when ansible_distribution == "CentOS" and ansible_distribution_version == "8.2" "
 
-    - name: install apache2 package
+    - name: install apache and php packages for CentOS
       dnf:
-        name: httpd
+        name: 
+          - httpd
+          - php
         state: latest
+        update_cache: yes
       when: ansible_distribution == "CentOS" # Will only install the package, but will not start it. To start it, we need to start the httpd service manually on the CentOS server and also open the 80 port to allow communication for apache.
 
-    - name: add php support for apache
-      dnf: 
-        name: php
-        state: latest
-      when: ansible_distribution == "CentOS"
