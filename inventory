@@ -2,10 +2,15 @@
 
 # IP1, IP2 & IP3 -> Ubuntu server
 # IP1 apache_package=apache2 php_package=libapache2-mod-php     ## I did it when I used these variables in install_apache.yml file. Do it same for IP2 & IP3 as these are ubuntu servers as well.
+[web_servers]
 IP1
+IP4
+
+[db_servers]
 IP2
+
+[file_servers]
 IP3
-# Add a CentOS server IP in the file to test "when" statement in Ansible, to "ansible_distribution".
+# Add a CentOS server IP in the file to test "when" statement in Ansible, for "ansible_distribution".
 # IP4 -> CentOS server
 # IP4 apache_package=httpd php_package=php
-IP4
