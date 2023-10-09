@@ -39,4 +39,31 @@ ansible all -m apt -a "upgrade=dist" --become --ask-become-pass
 # To run the playbook yml file
 ansible-playbook --ask-become-pass install_apache.yml
 
+# To list all the tags available
+ansible-playbook --list-tags site_with_tags.yml
+
+# To target the tag "centos"
+ansible-playbook --tags centos --ask-become-pass site_with_tags.yml
+
+# To target multiple tags
+ansible-playbook --tags "apache,db" --ask-become-pass site_with_tags.yml
+
 # 
+
+#
+
+#
+
+#
+
+#
+
+#
+
+#
+
+#
+
+#
+
+#### 
