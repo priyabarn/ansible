@@ -14,3 +14,6 @@ IP3
 # Add a CentOS server IP in the file to test "when" statement in Ansible, for "ansible_distribution".
 # IP4 -> CentOS server
 # IP4 apache_package=httpd php_package=php
+
+[workstations]
+IP5
