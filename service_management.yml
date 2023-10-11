@@ -58,6 +58,24 @@
       enabled: yes
     when: ansible_distribution == "CentOS"
 
+### To change a line in a file. The value in "line" will be what change we want to make.
+  - name: change e-mail address for admin
+    tags: apache,httpd,centos
+    lineinfile: 
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^ServerAdmin'
+      line: ServerAdmin somebody@somewhere.net
+    when: ansible_distribution == "CentOS"
+    register: httpd
+      ### "register" allows Ansible to capture the state in a variable. 'httpd' is a variable here.
+
+  - name: restart httpd (CentOS)
+    tags: apache,centos,httpd
+    service: 
+      name: httpd
+      state: restarted
+    when: httpd.changed
+
   - name: install apache2 package (Ubuntu)
     tags: apache,apache2,ubuntu
     apt:
